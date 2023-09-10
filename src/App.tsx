@@ -1,6 +1,6 @@
 import { createSignal } from 'solid-js'
 import * as sdk from 'matrix-js-sdk'
-import { Router, hashIntegration, A, Routes, Route } from 'solid-app-router'
+import { Router, hashIntegration, A, Routes, Route } from '@solidjs/router'
 
 const Home = () => (<>
   <div>Home!</div>
