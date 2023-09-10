@@ -4,7 +4,7 @@ import { Router, hashIntegration, A, Routes, Route } from '@solidjs/router'
 
 const Home = () => (<>
   <div>Home!</div>
-  <A href='/home'>To About</A>
+  <A href='/about'>To About</A>
 </>)
 const About = () => (<>
   <div>About!</div>
