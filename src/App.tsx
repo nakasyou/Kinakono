@@ -1,14 +1,22 @@
 import { createSignal } from 'solid-js'
 import * as sdk from 'matrix-js-sdk'
+import { Router, hashIntegration, A, Routes, Route } from 'solid-app-router'
 
+const Home = () => (<>
+  <div>Home!</div>
+  <A href='/home'>To About</A>
+</>)
+const About = () => (<>
+  <div>About!</div>
+  <A href='/'>To Home</A>
+</>)
 function App() {
   return <main>
-    <div class="text-2xl">Kinakono</div>
-    <p>Kinakonoは、分散型のスーパーアプリです。</p>
-    <button onClick={() => {
-    alert('x')
-      console.log(sdk)
-    }}>aaa</button>
+    <Router source={hashIntegration()}>
+      <Routes>
+        <Route path="/" component={Home} />
+      </Routes>
+    </Router>
   </main>
 }
 
