@@ -6,7 +6,8 @@ function App() {
     <div class="text-2xl">Kinakono</div>
     <p>Kinakonoは、分散型のスーパーアプリです。</p>
     <button onClick={() => {
-      alert(sdk)
+    alert('x')
+      console.log(sdk)
     }}>aaa</button>
   </main>
 }
