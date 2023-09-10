@@ -15,6 +15,7 @@ function App() {
     <Router source={hashIntegration()}>
       <Routes>
         <Route path="/" component={Home} />
+        <Route path="/about" component={About} />
       </Routes>
     </Router>
   </main>
