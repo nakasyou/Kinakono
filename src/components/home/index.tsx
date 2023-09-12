@@ -14,6 +14,6 @@ export function Home () {
         </div>
       </div>
     </div>
-    <Navbar />
+    <Navbar now={'home'} />
   </>
 }
