@@ -8,7 +8,8 @@ export function Home () {
         <div>ようこそ！kinakonoへ！これはホームです。</div>
         <div>
           kinakonoについて知りたい？
-          <A href='/about'>で詳細を手に入れよう！</A>
+          <A href='/about' class="mx-1 underline hover:no-underline">About</A>
+          で詳細を手に入れよう！
         </div>
       </div>
     </div>
