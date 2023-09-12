@@ -1,4 +1,5 @@
 import { A } from '@solidjs/router'
+import { Navbar } from '../navbar'
 
 export function Home () {
   return <>
@@ -13,5 +14,6 @@ export function Home () {
         </div>
       </div>
     </div>
+    <Navbar />
   </>
 }
