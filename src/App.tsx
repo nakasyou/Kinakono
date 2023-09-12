@@ -2,12 +2,13 @@ import { createSignal } from 'solid-js'
 import * as sdk from 'matrix-js-sdk'
 import { Router, hashIntegration, A, Routes, Route } from '@solidjs/router'
 
-const Home = () => (<>
-  <div>Home!</div>
-  <A href='/about'>To About</A>
-</>)
+import { Home } from './components/home/index.tsx'
+
 const About = () => (<>
   <div>About!</div>
+  <div>
+    kinakonoの説明ページ
+  </div>
   <A href='/'>To Home</A>
 </>)
 function App() {
