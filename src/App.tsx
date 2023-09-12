@@ -2,7 +2,8 @@ import { createSignal } from 'solid-js'
 import * as sdk from 'matrix-js-sdk'
 import { Router, hashIntegration, A, Routes, Route } from '@solidjs/router'
 
-import { Home } from './components/home/index.tsx'
+import { Home } from './components/home'
+import { Chat } from './components/chat'
 
 const About = () => (<>
   <div>About!</div>
@@ -17,6 +18,7 @@ function App() {
       <Routes>
         <Route path="/" component={Home} />
         <Route path="/about" component={About} />
+        <Route path="/chat" component={Chat} />
       </Routes>
     </Router>
   </main>
