@@ -1,17 +1,11 @@
 import { createSignal } from 'solid-js'
-import * as sdk from 'matrix-js-sdk'
-import { Router, hashIntegration, A, Routes, Route } from '@solidjs/router'
+import { Router, hashIntegration, Routes, Route } from '@solidjs/router'
 
 import { Home } from './components/home'
 import { Chat } from './components/chat'
+import { About } from './components/about'
+import { Settings } from './components/settings'
 
-const About = () => (<>
-  <div>About!</div>
-  <div>
-    kinakonoの説明ページ
-  </div>
-  <A href='/'>To Home</A>
-</>)
 function App() {
   return <main>
     <Router source={hashIntegration()}>
@@ -19,6 +13,7 @@ function App() {
         <Route path="/" component={Home} />
         <Route path="/about" component={About} />
         <Route path="/chat" component={Chat} />
+        <Route path='/settings'><Settings /></Route>
       </Routes>
     </Router>
   </main>
