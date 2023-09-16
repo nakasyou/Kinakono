@@ -1,6 +1,8 @@
 import { createStore } from "solid-js/store"
-import type { MatrixClient } from 'matrix-js-sdk'
+import { MatrixWrapper } from "../utils/matrix"
 
 export const [matrixData, setMatrixData] = createStore<{
-  client?: MatrixClient
-}>({})
+  matrixWrapper: MatrixWrapper
+}>({
+  matrixWrapper: new MatrixWrapper()
+})

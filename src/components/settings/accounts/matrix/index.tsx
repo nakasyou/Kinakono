@@ -1,10 +1,10 @@
 import { LoginMatrix } from "./login"
-import { matrixData, setMatrixData } from "../../../../store/matrix"
+import { matrixData } from "../../../../store/matrix"
 
 export const AccountsMatrix = () => {
   return <div>
     {
-      !matrixData.client ? (
+      !matrixData.matrixWrapper.solidStore.isLogined ? (
         <div>
           <LoginMatrix />
         </div>

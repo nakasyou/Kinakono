@@ -5,7 +5,7 @@ export interface Props {
 }
 export const Navbar = (props: Props) => {
   return <div>
-    <div class="grid grid-cols-2">
+    <div class="grid grid-cols-2 w-full fixed bottom-0 bg-gray-100">
       <A href='/'>
         <div>
           🏠

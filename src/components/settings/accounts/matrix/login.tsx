@@ -1,6 +1,6 @@
 import { createSignal } from "solid-js"
-import * as sdk from 'matrix-js-sdk'
-import { setMatrixData } from "../../../../store/matrix"
+import { matrixData, setMatrixData } from "../../../../store/matrix"
+import { LoginFailedError, MatrixWrapper } from "../../../../utils/matrix"
 
 export const LoginMatrix = () => {
   const [homeserver, setHomeServer] = createSignal('matrix.org')
@@ -57,30 +57,25 @@ export const LoginMatrix = () => {
         <button onClick={async () => {
           setLoginError(false)
           setIsLogining(true)
-          const logined = await fetch(`https://${homeserver()}/_matrix/client/r0/login`, {
-            headers: {
-              'content-type': 'application/json'
-            },
-            body: JSON.stringify({
-              type: "m.login.password",
-              user: username(),
+          
+          const matrixWrapper = matrixData.matrixWrapper
+          try {
+            await matrixWrapper.login({
+              homeserver: homeserver(),
+              username: username(),
               password: password()
-            }),
-            method: 'POST'
-          })
-          if (logined.status !== 200) {
-            setIsLogining(false)
-            setLoginError(true)
+            })
+          } catch (error) {
+            if (error instanceof LoginFailedError) {
+              setLoginError(true)
+              setIsLogining(false)
+              return
+            } else {
+              throw error
+            }
           }
-          const loginedData = await logined.json()
-          const client = sdk.createClient({
-            baseUrl: `https://${homeserver()}`,
-            accessToken: loginedData.access_token,
-            userId: loginedData.user_id
-          })
-          await client.startClient({ initialSyncLimit: 10 })
-
-          setMatrixData('client', client)
+          
+          await matrixWrapper.init()
           
         }}
         disabled={isLogining()}
