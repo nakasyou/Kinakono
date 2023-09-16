@@ -42,7 +42,7 @@ export function Chat () {
               const lastMessage = lastEvent.getContent()
               
               matrixData.matrixWrapper.matrixClient?.roomInitialSync(room.roomId, 10)
-
+              console.log(index(), lastEvent,lastMessage)
               return <div>
                 <div class="rounded-lg my-5 border">
                   <div class="flex items-center">
@@ -59,19 +59,22 @@ export function Chat () {
                         { room.name } { index() }
                       </div>
                       <div>
-                        <Switch fallback={lastMessage.membership}>
-                          <Match when={'join'}>
+                        <Switch>
+                          <Match when={lastMessage.membership === 'join'}>
                             { lastEvent.sender?.name }
                             が
                             ルームに参加しました
                           </Match>
+                          <Match when={lastMessage.msgtype === 'm.text'}>
+                            {
+                              lastEvent.sender?.name
+                            }: 
+                            {
+                              lastMessage.body?.replace(/^> <.+> [\s\S]+\n\n/, 'リプライ: ')
+                            }
+                          </Match>
                         </Switch>
-                        {
-                          lastEvent.sender?.name
-                        }: 
-                        {
-                          lastMessage.body?.replace(/^> <.+> [\s\S]+\n\n/, 'リプライ: ')
-                        }
+                        
                       </div>
                     </div>
                   </div>
