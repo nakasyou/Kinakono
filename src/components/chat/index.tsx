@@ -42,7 +42,6 @@ export function Chat () {
               const lastMessage = lastEvent.getContent()
               
               matrixData.matrixWrapper.matrixClient?.roomInitialSync(room.roomId, 10)
-              console.log(index(), lastEvent,lastMessage)
               return <div>
                 <div class="rounded-lg my-5 border">
                   <div class="flex items-center">
