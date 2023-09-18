@@ -4,6 +4,11 @@ import { createSignal, type Accessor, type Setter } from 'solid-js'
 import { createStore } from 'solid-js/store'
 
 export class LoginFailedError extends Error {}
+
+interface Events {
+  matrixStart: Record<string, (({}) => any)>
+  matrixSync: Record<string, (({}) => any)>
+}
 export class MatrixWrapper {
   solidStore
   setSolidStore
@@ -13,6 +18,7 @@ export class MatrixWrapper {
   setSolidData: {
     setRooms: Setter<sdk.Room[]>
   }
+  events: Events
   matrixClient?: sdk.MatrixClient
   constructor () {
     const [solidStore, setSolidStore] = createStore<{
@@ -32,6 +38,11 @@ export class MatrixWrapper {
     }
     this.setSolidData = {
       setRooms,
+    }
+
+    this.events = {
+      matrixStart: {},
+      matrixSync: {}
     }
   }
   async syncSolidStore () {
@@ -126,10 +137,31 @@ export class MatrixWrapper {
 
     this.setSolidStore('isLogined', this.getSecret() ? true : false)
     
-
     this.matrixClient!.on('sync', async (state, prevState, data) => {
       await this.syncSolidStore()
+      this.dispatchEvent('matrixSync', {})
       //console.log('Sync Data...', state, prevState, data)
     })
+
+    await this.dispatchEvent('matrixStart', {})
+  }
+  /**
+   * イベントを登録する
+   */
+  on <T extends keyof Events> (name: T, func: Events[T][string], id: string) {
+    // @ts-ignore
+    this.events[name][id] = func
+  }
+  /**
+   * イベントを発火する
+   */
+  async dispatchEvent <T extends keyof Events> (name: T, data: Parameters<Events[T][string]>[0]) {
+    await Promise.all(Object.values(this.events[name]).map(listener => (async () => await listener(data))()))
+  }
+  /**
+   * イベントを削除する
+   */
+  removeEventListener (name: keyof Events, id: string) {
+    delete this.events[name][id]
   }
 }

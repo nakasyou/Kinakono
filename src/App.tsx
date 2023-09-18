@@ -12,7 +12,7 @@ function App() {
       <Routes>
         <Route path="/" component={Home} />
         <Route path="/about" component={About} />
-        <Route path="/chat" component={Chat} />
+        <Route path="/chat"><Chat /></Route>
         <Route path='/settings'><Settings /></Route>
       </Routes>
     </Router>
